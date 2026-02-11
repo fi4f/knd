@@ -84,3 +84,11 @@ export type Resource = Readonly<{
   size: number // size in bytes
   mimeType: string
 }>
+
+export type Message =
+  | TextMessage
+  | FileMessage
+
+
+// messages should be chunked for ease of loading
+// thinking that they should be chunked based on what... lamport clocks or timestamps?
