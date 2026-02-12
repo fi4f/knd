@@ -6,10 +6,8 @@ const roomId = "knd-test-room"
 
 const room = joinRoom({ appId }, roomId)
 
-room.makeAction("text")
-room.makeAction("file")
-room.makeAction("reqFile")
-room.makeAction("resFile")
+
+
 
 
 
