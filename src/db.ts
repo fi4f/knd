@@ -1,4 +1,4 @@
-import type { BlacklistDevice, PublishFile, PublishText, RenameChannel, RenameStation, WhitelistDevice } from "./types"
+import type { BlacklistDevice, PublishFile, PublishText, RenameChannel, RenameStation, WhitelistDevice } from "./protocol"
 
 export const db = {
 
