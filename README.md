@@ -1,32 +1,73 @@
-### KND is for _Kids Next Door_
+# React + TypeScript + Vite
 
-KND is a p2p decentralized messaging and file-sharing app.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-### Objective(s)
+Currently, two official plugins are available:
 
-Offer a free and open source alternative to platforms like Discord and Slack that puts users in control of their data.
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-### Features
+## React Compiler
 
-Leverage browser features and decentralized infrastructure to provide 
-- Voice calls over WebRTC
-- Video calls over WebRTC
-- Screen sharing over WebRTC
-- Send and receive messages
-- Send and receive files
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-#### Decentralized Rooms
-KND is built on top of Trystero which leverages ephemeral "rooms". Rooms are not true infrastructure, but instead are unique identifiers that clients can use to find and connect to eachother without a central authority.
+## Expanding the ESLint configuration
 
-#### Decentralized Identity Model
-KND uses a hierarchical identity model to provide a secure and decentralized way to identify users. Each user is represented by a unique primary public/private key pair, which can be used to authorize or revoke additional device keys.
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-#### Decentralized Persistence
-KND mirrors all interactions in a local database which is merged with views from other clients when connected.
+```js
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
 
-#### Decentralized Ordering
-KND leverages a combination of lamport clocks and unix timestamps to order interactions when merging views.
+      // Remove tseslint.configs.recommended and replace with this
+      tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      tseslint.configs.stylisticTypeChecked,
 
-#### Signatures Everywhere
-All interactions are signed by a user's primary key, which can be used to verify its authenticity.
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+```
 
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
+
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+```
