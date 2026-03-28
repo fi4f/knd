@@ -15,8 +15,8 @@ Leverage browser features and decentralized infrastructure to provide
 - Send and receive messages
 - Send and receive files
 
-#### Decentralized Rooms
-KND is built on top of Trystero which leverages ephemeral "rooms". Rooms are not true infrastructure, but instead are unique identifiers that clients can use to find and connect to eachother without a central authority.
+#### Decentralized Stations
+KND is built on top of Trystero which leverages ephemeral "rooms". Rooms are not true infrastructure, but instead are unique identifiers that clients can use to find and connect to each other without a central authority.
 
 #### Decentralized Identity Model
 KND uses a hierarchical identity model to provide a secure and decentralized way to identify users. Each user is represented by a unique primary public/private key pair, which can be used to authorize or revoke additional device keys.

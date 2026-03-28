@@ -5,91 +5,107 @@ export const RENAME_CHANNEL   = "station:rename-channel"
 export const PUBLISH_TEXT     = "channel:publish-text"
 export const PUBLISH_FILE     = "channel:publish-file"
 
-export type uuid = `${string}-${string}-${string}-${string}-${string}`
 
-export type Is<T extends string> = Readonly<{
-  is: T
-}>
+export namespace V1 {
+  export type WhitelistDevice = Readonly<{
+    is: typeof WHITELIST_DEVICE
+    // signed
+    senderKey: string
+    deviceKey: string
+    signature: string
+    // versioned
+    version: 1
+  }>
 
-export type Signed = Readonly<{
-  senderKey  : string
-  deviceKey  : string
-  signature  : string
-}>
+  export type BlacklistDevice = Readonly<{
+    is: typeof BLACKLIST_DEVICE
+    // signed
+    senderKey: string
+    deviceKey: string
+    signature: string
+    // versioned
+    version: 1
+  }>
 
-
-export type Monotonic = Signed & Readonly<{
-  lamport    : string
-  timestamp  : number
-}>
-
-export type Versioned<N extends number> = Readonly<{
-  version: N
-}>
-
-export type WhitelistDevice = Pretty<
-  & Is<typeof WHITELIST_DEVICE>
-  & Signed
-  & Versioned<1>
->
-
-export type BlacklistDevice = Pretty<
-  & Is<typeof BLACKLIST_DEVICE>
-  & Signed
-  & Versioned<1>
->
-
-export type RenameStation = Pretty<
-  & Is<typeof RENAME_STATION>
-  & Signed
-  & Versioned<1>
-  & Readonly<{
+  export type RenameStation = Readonly<{
+    is: typeof RENAME_STATION
+    // unique
     messageId: string
     stationId: string
+    // signed
+    senderKey: string
+    deviceKey: string
+    signature: string
+    // monotonic
+    lamport  : string
+    timestamp: number
+    // versioned
+    version: 1
+    // payload
     stationName: string
   }>
->
 
-export type RenameChannel = Pretty<
-  & Is<typeof RENAME_CHANNEL>
-  & Signed
-  & Versioned<1>
-  & Readonly<{
+  export type RenameChannel = Readonly<{
+    is: typeof RENAME_CHANNEL
+    // unique
     messageId: string
-    channelId: string
     stationId: string
+    channelId: string
+    // signed
+    senderKey: string
+    deviceKey: string
+    signature: string
+    // monotonic
+    lamport  : string
+    timestamp: number
+    // versioned
+    version: 1
+    // payload
     channelName: string
   }>
->
 
-export type PublishText = Pretty<
-  & Is<typeof PUBLISH_TEXT>
-  & Signed
-  & Monotonic
-  & Versioned<1>
-  & Readonly<{
+  export type PublishText = Readonly<{
+    is: typeof PUBLISH_TEXT
+    // unique
     messageId: string
-    channelId: string
     stationId: string
-    content  : string
+    channelId: string
+    // signed
+    senderKey: string
+    deviceKey: string
+    signature: string
+    // monotonic
+    lamport  : string
+    timestamp: number
+    // versioned
+    version: 1
+    // payload
+    content: string
   }>
->
 
-export type PublishFile = Pretty<
-  & Is<typeof PUBLISH_FILE>
-  & Signed
-  & Monotonic
-  & Versioned<1>
-  & Readonly<{
+  export type PublishFile = Readonly<{
+    is: typeof PUBLISH_FILE
+    // unique
     messageId: string
-    channelId: string
     stationId: string
+    channelId: string
+    // signed
+    senderKey: string
+    deviceKey: string
+    signature: string
+    // monotonic
+    lamport  : string
+    timestamp: number
+    // versioned
+    version: 1
+    // payload
     content  : FileMetadata
     preview ?: FileMetadata
-  }>
->
+  }>  
+}
 
-type FileMetadata = Readonly<{
+
+export type FileMetadata = Readonly<{
   id  : string
   name: string
   hash: string
@@ -97,6 +113,4 @@ type FileMetadata = Readonly<{
   mimeType: string
 }>
 
-export type Pretty<T> = {
-  [K in keyof T]: T[K]
-}
+export type uuid = `${string}-${string}-${string}-${string}-${string}`
