@@ -1,6 +1,9 @@
-import { create, createStore } from "zustand"
-import { DeviceIdentity, SenderIdentity, type Ed25519PublicKey } from "./protocol"
+import { create } from "zustand"
+import { DeviceIdentity, SenderIdentity } from "./protocol"
 import { immer } from "zustand/middleware/immer"
+
+// the device identity is kind of inherently tied to the sender...
+// if multiple senders want to use the same device there is no reason to try and share device ids
 
 
 export type IdentityStoreState   = {
