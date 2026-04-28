@@ -57,6 +57,15 @@ export const DeviceInfoSchema = z.strictObject({
   displayName: z.string()
 })
 
+export const DeviceHistorySchema = z.strictObject({
+  is: z.literal("v1-device-history"),
+
+  events: z.array(z.union([
+    WhitelistDeviceSchema,
+    BlacklistDeviceSchema
+  ])).readonly()
+})
+
 export type Ed25519PublicKey = z.infer<typeof Ed25519PublicKeySchema>
 export type Ed25519SecretKey = z.infer<typeof Ed25519SecretKeySchema>
 export type Ed25519Signature = z.infer<typeof Ed25519SignatureSchema>
@@ -213,6 +222,12 @@ export const BlacklistDevice = {
       signatureBytes,
       publicKeyBytes
     )
+  }
+}
+
+export const DeviceHistory = {
+  new() {
+
   }
 }
 
